@@ -1,16 +1,55 @@
-// El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. Aquí deberás desarrollar la lógica para resolver el problema.
 
-/**
- * En este desafío, desarrollarás una aplicación que permita a los usuarios 
- * ingresar nombres de amigos en una lista para luego realizar un 
- * sorteo aleatorio y determinar quién es el "amigo secreto".
- * El usuario deberá agregar nombres mediante un campo de texto y un botón "Adicionar".
- * Los nombres ingresados se mostrarán en una lista visible en la página
- * y al finalizar, un botón "Sortear Amigo" seleccionará uno de los nombres de forma aleatoria, mostrando el resultado en pantalla.
- */
-/**
- * Agregar nombres: Los usuarios escribirán el nombre de un amigo en un campo de texto y lo agregarán a una lista visible al hacer clic en "Adicionar".
- * Validar entrada: Si el campo de texto está vacío, el programa mostrará una alerta pidiendo un nombre válido.
- * Visualizar la lista: Los nombres ingresados aparecerán en una lista debajo del campo de entrada.
- * Sorteo aleatorio: Al hacer clic en el botón "Sortear Amigo", se seleccionará aleatoriamente un nombre de la lista y se mostrará en la página.
- */
+//Capturar el dato ingresado en input
+
+let amigos = []
+function agregarAmigo() {
+    //Obtiene el nombre del input
+    let obtenerNombre = document.querySelector('#amigo').value
+    //revisar si hay valores introducidos
+    if (obtenerNombre == "") {
+        //alerta de que no hay ningun vaor
+        alert('No hay valores introducidos')
+    } else {
+        //agregar al array
+        amigos.push(obtenerNombre)
+    }
+    //Limpia el campo para agregar mas nombres
+    agregarListaFunc();
+    limpiarCampo();
+}
+
+
+
+
+//Limpiar input
+function limpiarCampo() {
+    let valorALimpiar = document.querySelector('#amigo')
+    valorALimpiar.value = ""
+}
+//Agrega los nombres introducidos a la lista
+function agregarListaFunc() {
+    //Limpia la lista
+    let limpiarLista = document.querySelector('#listaAmigos')
+    limpiarLista.innerHTML = ""
+    amigos.forEach(value => {
+        //Crea el elemento li y lo agrega a cada elemento del arreglo
+        var list = document.createElement('li');
+        list.textContent = value
+        limpiarLista.appendChild(list);
+    });
+    
+}
+//Sortea los nombres
+function sortearAmigo() {
+    if (amigos.length != 0) {
+        let sorteo = Math.floor(Math.random()* amigos.length)    
+        let colocarValor = document.querySelector('#resultado')
+        colocarValor.textContent = `el amigo secreto es : ${amigos[sorteo]}`
+
+    } else {
+        alert('No hay amigos')
+    }
+    return amigos[sorteo]
+
+}
+
